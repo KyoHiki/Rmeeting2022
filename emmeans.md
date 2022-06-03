@@ -27,6 +27,7 @@ mod <- glm(Insecta ~ log10(Ni) + log10(Zn) + log10(Cu)
            data = d, na.action = na.fail)
 
 summary(mod)
+
 ``` 
 Call:  
 glm(formula = Insecta ~ log10(Ni) + log10(Zn) + log10(Cu) + pH + 
