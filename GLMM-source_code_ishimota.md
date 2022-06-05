@@ -7,13 +7,13 @@
 
 ``` r
 ####メソコスム試験（ダミーデータ）GLM解析###  
-
 toxicity<-read.table("GLMM-data.Ishimota.txt", header = T)	#データの読み込み
 attach(toxicity)　　　　　　　　　　　　　　　　　　　　#データへのアクセス
 pairs(toxicity)　　　　　　　　　　　　　　　　         #変数同士の関係性の図示
-	
+``` 
+![](figs/glmm-pairs.png)
+``` r
 mode1 <-glm(Ind~EC+pred+PA+PB,family=poisson(link="log"),data=toxicity) 
-
 
 summary(mode1)
 
@@ -33,11 +33,10 @@ EC          -3.108e-02  8.893e-03  -3.495 0.000475 ***
 pred        -8.083e-02  6.004e-03 -13.462  < 2e-16 ***  
 PA          -3.676e-02  7.444e-02  -0.494 0.621492      
 PB           1.101e-05  3.358e-02   0.000 0.999738      
----  
+   
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  
   
-(Dispersion parameter for poisson family taken to be 1)  
-  
+(Dispersion parameter for poisson family taken to be 1)   
     Null deviance: 917.52  on 23  degrees of freedom  
 Residual deviance: 186.23  on 19  degrees of freedom  #残差逸脱度(186.23),残差自由度（19）
 AIC: 316.87  
@@ -55,7 +54,6 @@ x2/19         　　　　#ピアソンのχ二乗統計量(x2)/残差自由度�
 
 ``` r
 ####メソコスム試験（ダミーデータ）GLMM解析###
-
 install.packages("lme4")                                    #lme4パッケージのインストール（お持ちの場合は割愛）
 
 toxicity<-read.table("GLMM-data.Ishimota.txt", header = T)　#データの読み込み
@@ -63,9 +61,7 @@ attach(toxicity)
 
 library(lme4)                                   　　　　#lme4のパッケージの読み込み
 
-mode2 <-glmer(Ind~EC+pred+PA+PB+(1|id) ,family=poisson(link="log"),data=toxicity)    
-
-                                               　　　　 #GLMM解析， +(1|id)：切片にランダム効果を追加
+mode2 <-glmer(Ind~EC+pred+PA+PB+(1|id) ,family=poisson(link="log"),data=toxicity)    　　　　 #GLMM解析， +(1|id)：切片にランダム効果を追加
 
 summary(mode2)
 ``` 
@@ -74,7 +70,7 @@ Generalized linear mixed model fit by maximum likelihood (Laplace Approximation)
 Formula: Ind ~ EC + pred + PA + PB + (1 | id)  
    Data: toxicity  
   
-     AIC      BIC   logLik deviance df.resid   
+   AIC      BIC   logLik deviance df.resid   
    310.7    317.8   -149.4    298.7       18   
   
 Scaled residuals:   
@@ -93,7 +89,7 @@ EC          -0.00963    0.01179  -0.817    0.414
 pred        -0.07976    0.00601 -13.270   <2e-16 ***  
 PA          -0.07966    0.07713  -1.033    0.302      
 PB           0.02920    0.03537   0.826    0.409      
----  
+  
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  
   
 Correlation of Fixed Effects:  
