@@ -17,8 +17,8 @@
   
   * 18:30-18:32   石母田 誠 （残農研)：趣旨説明  
   　　
-  * 18:32-19:02   江口 哲史 （千葉大）：統計ソフトRの概要，データ集計・作図，レポート作成法  
-  　　
+  * 18:32-19:02   江口 哲史 （千葉大）：統計ソフトRの概要，データ集計・作図，レポート作成法    
+     　　　　　　　　　　　　　　　    **Rコード**→[Rcode](https://github.com/KyoHiki/Rmeeting2022/blob/main/nightmeeting2022_eguchi/outline_R_3gakkai_eguchi.Rmd)  　　
   * 19:02-19:14   竹下 和貴 （東洋大)：重回帰分析の実行とその結果の可視化  
      　　　　　　　　　　　　　　　    **Rコード**→[emmeans](https://github.com/KyoHiki/Rmeeting2022/blob/main/emmeans.md)・[dagitty](https://github.com/KyoHiki/Rmeeting2022/blob/main/dagitty.md)  
   * 19:14-19:26   石母田 誠 （残農研)：GLMM（一般化線形混合モデル）でデータのばらつきに対応しよう！  
