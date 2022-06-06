@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>統計ソフトRの概要 データ集計・作図・レポート作成</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="千葉大学予防医学センター: 江口 哲史" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <p>統計ソフトRの概要<br />
+データ集計・作図・レポート作成</p>
+]
+.author[
+### 千葉大学予防医学センター: 江口 哲史
+]
+
+---
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-slide-content {
+  font-size: 18px;
+  padding: 20px 80px 20px 80px;
+}
+.remark-code, .remark-inline-code {
+  background: #f0f0f0;
+}
+.remark-code {
+  font-size: 18px;
+}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+  
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 50% !important;
+  
+}
+.small .remark-code { /*Change made here*/
+  font-size: 66% !important;
+  
+}
+.small2 .remark-code { /*Change made here*/
+  font-size: 80% !important;
+  
+}
+
+&lt;/style&gt;
+
+
+# Rとは？
+オープンソースの統計解析向けプログラミング言語  
+  
+Windows, Mac, LinuxどれでもOK  
+  
+パッケージで機能を拡張  
+  
+高度な可視化や最新の統計手法を利用可  
+  
+コードを書いて処理を行う必要がある  
+---
+# Rとは？
+コードを書いて処理を行う必要がある  
+
+どうしても慣れが必要・とっつきにくさ  
+  
+敷居を下げるためのツールも存在
+  
+記述した内容が残ることはメリットでもある  
+
+レポート・資料を作成するためのプラットフォームがある
+---
+class: center, middle
+# R環境のセットアップ
+
+---
+
+# R環境のセットアップ
+### [Base R: downlord from CRAN](https://cran.r-project.org/)
+![icon](pics/Rlogo.png)  
+--
+
+### [RStudio IDE: downlord from RStudio](https://www.rstudio.com/products/rstudio/)
+![icon2](pics/RStudio-Logo-Flat.png)
+--
+
+---
+
+# R起動
+![launch0](pics/launch0.png)
+簡素なUI・書いたコードの再利用が難しい  
+→ RStudioの利用を推奨
+---
+
+# RStudio起動
+![launch1](pics/launch1.png)
+
+---
+
+# RStudio起動
+![launch2](pics/launch2.png)
+
+---
+
+# RStudio起動
+![launch3](pics/launch3.png)
+
+---
+class: center, middle
+# パッケージ・データ読み込み
+
+---
+# パッケージの導入
+
+ **tidyverse** のパッケージの導入  
+ [CRAN](https://cran.r-project.org/):
+
+
+```r
+install.packages("tidyverse")
+install.packages("knitr")
+install.packages("rmarkdown")
+install.packages("GGally")
+```
+
+--
+
+Rのパッケージはデータの集計や可視化・解析手法などの機能を追加するための外部ツール。`install.packages()`関数を使うことで [CRAN](https://cran.r-project.org/) に登録されているパッケージをインストールできる(2022/06現在18500種以上)。
+
+---
+
+# パッケージの読み込み
+
+
+```r
+library("tidyverse"); library("GGally")
+```
+
+インストールしたパッケージを読み込む際には`library()`関数を利用する。インストールはアップデートされたバージョンを使わないのであれば一度で大丈夫だが、パッケージの読み込みはRを立ち上げるたびに行う必要がある。  
+この **tidyverse** パッケージはデータの高速な読み込み・加工・集計・可視化などに関わるパッケージ群を一括で使えるようにするためのパッケージ。  
+**GGally** パッケージは後の可視化で少し紹介。
+---
+
+# データの読み込み
+
+```r
+df &lt;- read_csv("data/demo_data.csv")
+```
+
+上記のような記述でcsvファイルを読み込むことができる。  
+エクセルの場合は**readxl** パッケージの`read_xlsx()`関数を使う。  
+
+パス (コンピュータ内の住所) の概念を知らないとうまく読めない。
+
+---
+# パス
+![path1](pics/path1.png)
+`getwd()`関数で自分のRがどこの住所を参考にしているか調べることができる。
+
+---
+# パス
+![path2](pics/path1.png)
+
+```r
+df &lt;- read_csv("XX.csv") # NG
+```
+
+---
+# パス
+![path3](pics/path1.png)
+
+```r
+df &lt;- read_csv("project1/XX.csv") # NG
+```
+
+---
+# パス
+![path4](pics/path1.png)
+
+```r
+df &lt;- read_csv("C:¥/project1/data/XX.csv") # OK
+```
+
+---
+# パス
+![path5](pics/path1.png)
+
+```r
+df &lt;- read_csv("C:¥/project1/data/YY.csv") # NG
+```
+
+---
+# パス
+![path6](pics/path1.png)
+
+```r
+df &lt;- read_csv("C:¥/project2/data/XX.csv") # Other file
+```
+
+---
+# パス
+![path7](pics/path1.png)
+
+```r
+df &lt;- read_csv("C:¥/project2/data/YY.csv") # OK
+```
+
+---
+# パス
+正確にパスを書かないといけないのでタイポ等があるだけで読めなくなってしまう
+--
+
+
+```r
+setwd("C:¥/project1/")
+df &lt;- read_csv("data/XX.csv") # OK
+```
+`setwd()`関数で自分のRが参考にしている住所を指定できる
+---
+# パス
+![path8](pics/path2.png)
+  
+`setwd()`関数で自分のRが参考にしている住所を指定できる
+
+---
+# プロジェクト
+
+![project](pics/project.png)
+
+プロジェクトを作ることで特定のフォルダを参照フォルダにできる
+
+---
+# プロジェクト
+
+```r
+df &lt;- read_csv("data/demo_data.csv") # OK
+```
+
+一番シンプルな記述で読み込みができるように
+
+---
+class: center, middle
+# データ確認・加工
+
+---
+# データの確認
+
+```r
+head(df)
+```
+
+```
+## # A tibble: 6 × 6
+##   `Sample ID`   Age Gender Height Weight outcome
+##         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1           1    36 Female    162     52      18
+## 2           2    13 Female    160     43       8
+## 3           3    20 Female    153     46      37
+## 4           4    24 Male      167     54      57
+## 5           5    22 Female    153     43      14
+## 6           6    48 Male      168     60      35
+```
+ID含めて変数は7個、性別以外は数値
+---
+
+# データの確認
+
+```r
+summary(df)
+```
+
+```
+##    Sample ID          Age           Gender              Height     
+##  Min.   : 1.00   Min.   :10.00   Length:80          Min.   :129.0  
+##  1st Qu.:20.75   1st Qu.:25.75   Class :character   1st Qu.:153.0  
+##  Median :40.50   Median :37.00   Mode  :character   Median :158.5  
+##  Mean   :40.50   Mean   :35.60                      Mean   :158.6  
+##  3rd Qu.:60.25   3rd Qu.:46.00                      3rd Qu.:165.2  
+##  Max.   :80.00   Max.   :60.00                      Max.   :177.0  
+##      Weight         outcome      
+##  Min.   :30.00   Min.   :  7.20  
+##  1st Qu.:44.75   1st Qu.: 37.75  
+##  Median :50.00   Median : 59.00  
+##  Mean   :52.08   Mean   : 71.27  
+##  3rd Qu.:56.25   3rd Qu.: 93.25  
+##  Max.   :80.00   Max.   :360.00
+```
+
+min, max, mean, median, 1st, 3rd quartilesを`summary()`関数1つで確認できる
+
+---
+# データの集計
+**tidyverse**に含まれる**dplyr**はtableデータの操作に適したパッケージ  
+データの加工・集計の際に便利  
+内部で読み込まれる**magrittr**パッケージの機能でパイプ `%&gt;%` を使ってパイプの左側に記述したデータをパイプの右側の処理に受け渡す  
+連続してパイプをつないでまとめていろいろな処理ができる
+
+---
+# dplyrの主な関数
+## select(): 特定の列を選択  
+
+## filter(): 特定の行を選択  
+
+## group_by(): 特定の変数に基づいてグループを作る
+
+## summarise(): グループ化したデータに基づいて集計する
+
+## mutate(): 新しい変数を作る
+
+## XX_join(): 共通する変数に基づいて2つのデータを結合する (今回は解説せず)
+
+---
+# select(): 列の選択
+
+```r
+df %&gt;% select(Age, Gender, outcome)
+```
+
+```
+## # A tibble: 80 × 3
+##      Age Gender outcome
+##    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+##  1    36 Female    18  
+##  2    13 Female     8  
+##  3    20 Female    37  
+##  4    24 Male      57  
+##  5    22 Female    14  
+##  6    48 Male      35  
+##  7    46 Female    88  
+##  8    49 Male     100  
+##  9    26 Female    37  
+## 10    50 Female     7.2
+## # … with 70 more rows
+```
+
+目的の列のみを`select()`で抽出
+
+---
+# select(): 列の選択
+
+```r
+df %&gt;% select(!c(Age, Gender, outcome))
+```
+
+```
+## # A tibble: 80 × 3
+##    `Sample ID` Height Weight
+##          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1           1    162     52
+##  2           2    160     43
+##  3           3    153     46
+##  4           4    167     54
+##  5           5    153     43
+##  6           6    168     60
+##  7           7    153     44
+##  8           8    157     44
+##  9           9    159     48
+## 10          10    153     42
+## # … with 70 more rows
+```
+!をつけると選択した列以外を抽出できる
+
+---
+# filter(): 行の選択
+
+```r
+df %&gt;% filter(Gender == "Female") 
+```
+
+```
+## # A tibble: 45 × 6
+##    `Sample ID`   Age Gender Height Weight outcome
+##          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+##  1           1    36 Female    162     52    18  
+##  2           2    13 Female    160     43     8  
+##  3           3    20 Female    153     46    37  
+##  4           5    22 Female    153     43    14  
+##  5           7    46 Female    153     44    88  
+##  6           9    26 Female    159     48    37  
+##  7          10    50 Female    153     42     7.2
+##  8          11    30 Female    154     43    16  
+##  9          13    45 Female    160     50    28  
+## 10          14    24 Female    168     58   110  
+## # … with 35 more rows
+```
+
+`filter()`では行の抽出が可能  
+上記では性別 (Gender) がFemaleの行のみを抽出  
+文字列の場合は""で囲んで文字列として取り扱う
+
+---
+# filter(): 行の選択
+
+```r
+head( df %&gt;% filter(Height &gt; 150 &amp; Gender == "Female") )
+```
+組み合わせも可能 (身長150cm以上の女性)
+
+---
+# group_by(): グルーピング
+主にデータの集計に用いられる関数   
+関数の()内にグルーピングに使いたい変数を記入する
+
+
+```r
+head( df %&gt;% group_by(Gender) )
+```
+
+```
+## # A tibble: 6 × 6
+## # Groups:   Gender [2]
+##   `Sample ID`   Age Gender Height Weight outcome
+##         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1           1    36 Female    162     52      18
+## 2           2    13 Female    160     43       8
+## 3           3    20 Female    153     46      37
+## 4           4    24 Male      167     54      57
+## 5           5    22 Female    153     43      14
+## 6           6    48 Male      168     60      35
+```
+
+単に`group_by()`関数に渡すだけではデータの見た目は変わらない
+
+---
+# summarise(): グルーピングしたデータの集計
+
+
+```r
+df %&gt;% group_by(Gender) %&gt;% 
+　summarise(N = n(), H = mean(Height), W = max(Weight))
+```
+
+```
+## # A tibble: 2 × 4
+##   Gender     N     H     W
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Female    45  155.    66
+## 2 Male      35  164.    80
+```
+`summarise()`は名の通りグルーピングしたデータを集計するための関数  
+`n()`, `mean()`, `sum()`, `sd()`などの関数を使って、  
+`group_by()`関数で指定した変数で集計値を計算できる
+
+---
+# mutate(): 変数の追加
+
+```r
+head( df %&gt;% mutate(BMI = Weight / (Height/100)^2,
+                    BMI = round(BMI, digits = 1)) )
+```
+
+```
+## # A tibble: 6 × 7
+##   `Sample ID`   Age Gender Height Weight outcome   BMI
+##         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1           1    36 Female    162     52      18  19.8
+## 2           2    13 Female    160     43       8  16.8
+## 3           3    20 Female    153     46      37  19.7
+## 4           4    24 Male      167     54      57  19.4
+## 5           5    22 Female    153     43      14  18.4
+## 6           6    48 Male      168     60      35  21.3
+```
+`mutate()`関数は新しい変数を追加するための関数  
+データの組み合わせて様々な加工も可能  
+上記では身長と体重からBMIをつくっている
+
+
+---
+
+class: center, middle
+# 作図
+
+---
+# 作図
+**tidyverse**に含まれる**ggplot2**パッケージが広く利用されている  
+作ることができる図の種類が多い  
+レイヤー構造になっており柔軟性が高い  
+きれいな図を作ることができる（好みはあるが…
+
+---
+# ggplot2
+
+```r
+ggplot(df, aes(x = Gender, y = BMI))
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+レイヤーの1段目  
+`ggplot()`関数内にデータを指定し、`aes()`関数でx, y軸などを指定しておく 
+x, y軸がそれぞれ指定されるが出力される図は外側だけ
+
+---
+# ggplot2
+
+```r
+ggplot(df, aes(x = Gender, y = BMI)) + geom_boxplot()
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+ 
+`geom_XX()`関数をつなげ、作りたい出力レイヤーを指定する
+
+---
+# 代表的なgeom_XX
+## geom_boxplot(): 箱ひげ図をつくる
+
+## geom_point(): 散布図をつくる
+
+## geom_smooth(): 回帰直線を引く
+
+## geom_histogram(): ヒストグラムをつくる
+
+## geom_bar(): 棒グラフをつくる
+
+---
+# geom_boxplot()
+
+```r
+ggplot(df, aes(x = Gender, y = BMI, fill = Gender)) + geom_boxplot()
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+`fill`, `color`引数に変数を指定することで色分けも可能
+
+---
+# 散布図
+
+```r
+ggplot(df, aes(x = Height, y = Weight, color = Gender)) + 
+  geom_point() 
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+`geom_point()`で各検体の身長・体重を性別ごとに図示
+
+---
+# 散布図
+
+```r
+ggplot(df, aes(x = Height, y = Weight, color = Gender)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+`geom_smooth()`で先程の図にレイヤーを追加する形で回帰直線を追加
+
+---
+# 散布図行列
+
+```r
+ggpairs(df)
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+**GGally**パッケージを利用することで相関行列を一気に作ることもできる
+---
+
+# 散布図行列
+
+```r
+ggpairs(df, aes(color = Gender))
+```
+
+![](outline_R_3gakkai_eguchi_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+`aes()`関数に変数を渡して色分けした図にもできる  
+そのまま論文の図にするにはうるさいかもしれないが探索に有効
+
+---
+class: center, middle
+# レポーティング
+
+---
+#RMarkdown
+
+Markdownの派生  
+  
+文章とコードをひとまとめにして出力するための機能  
+  
+html, word, PDF, pptxなど、様々な形式に出力可能  
+  
+データ・乱数・パッケージなどが固定されていればいつも同じ出力  
+  
+sessionInfo()関数で現在のR、パッケージのバージョン情報を出力可
+
+---
+#RMarkdown
+![launch10](pics/launch2.png)
+---
+#RMarkdown
+![launch11](pics/launch4.png)
+
+---
+#RMarkdown
+![word](pics/word.png)
+
+
+---
+#RMarkdown
+bibtexと連携して引用文献をつけることもできる  
+一部論文誌フォーマットも用意されている
+  
+メモ帳代わりにでもコードと結果・考察をまとめておくことは助けになる  
+
+本スライドもRMarkdownおよびxaringanパッケージを使って作ったもの  
+コードはアップロード予定
+
+RMarkdownでも可能だが、開発中のQuartoを利用することでR, Python, Juliaなど、  
+複数のデータ解析に関わる言語にまたがった処理も可能になりつつある  
+
+---
+# 参考資料
+[RユーザのためのRStudio"実践"入門](https://gihyo.jp/book/2021/978-4-297-12170-9)  
+  
+[Rが生産性を高める](https://gihyo.jp/book/2022/978-4-297-12524-0)  
+  
+[データ分析のためのデータ可視化入門](https://www.kspub.co.jp/book/detail/5164044.html)  
+  
+[再現可能性のすゝめ](https://www.kyoritsu-pub.co.jp/book/b10003938.html)  
+  
+[自然科学研究のためのR入門](https://www.kyoritsu-pub.co.jp/book/b10003117.html)  
+
+---
+# 実行環境
+.tiny[
+
+```r
+sessioninfo::session_info()
+```
+
+```
+## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value
+##  version  R version 4.1.2 (2021-11-01)
+##  os       macOS Big Sur 10.16
+##  system   x86_64, darwin17.0
+##  ui       X11
+##  language (EN)
+##  collate  ja_JP.UTF-8
+##  ctype    ja_JP.UTF-8
+##  tz       Asia/Tokyo
+##  date     2022-06-03
+##  pandoc   2.17.1.1 @ /Applications/RStudio.app/Contents/MacOS/quarto/bin/ (via rmarkdown)
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package        * version date (UTC) lib source
+##  assertthat       0.2.1   2019-03-21 [1] CRAN (R 4.1.0)
+##  backports        1.4.1   2021-12-13 [1] CRAN (R 4.1.0)
+##  bit              4.0.4   2020-08-04 [1] CRAN (R 4.1.0)
+##  bit64            4.0.5   2020-08-30 [1] CRAN (R 4.1.0)
+##  broom            0.8.0   2022-04-13 [1] CRAN (R 4.1.2)
+##  bslib            0.3.1   2021-10-06 [1] CRAN (R 4.1.0)
+##  cellranger       1.1.0   2016-07-27 [1] CRAN (R 4.1.0)
+##  cli              3.3.0   2022-04-25 [1] CRAN (R 4.1.2)
+##  colorspace       2.0-3   2022-02-21 [1] CRAN (R 4.1.2)
+##  crayon           1.5.1   2022-03-26 [1] CRAN (R 4.1.2)
+##  DBI              1.1.2   2021-12-20 [1] CRAN (R 4.1.0)
+##  dbplyr           2.1.1   2021-04-06 [1] CRAN (R 4.1.0)
+##  digest           0.6.29  2021-12-01 [1] CRAN (R 4.1.0)
+##  dplyr          * 1.0.9   2022-04-28 [1] CRAN (R 4.1.2)
+##  ellipsis         0.3.2   2021-04-29 [1] CRAN (R 4.1.0)
+##  evaluate         0.15    2022-02-18 [1] CRAN (R 4.1.2)
+##  fansi            1.0.3   2022-03-24 [1] CRAN (R 4.1.2)
+##  farver           2.1.0   2021-02-28 [1] CRAN (R 4.1.0)
+##  fastmap          1.1.0   2021-01-25 [1] CRAN (R 4.1.0)
+##  forcats        * 0.5.1   2021-01-27 [1] CRAN (R 4.1.0)
+##  fs               1.5.2   2021-12-08 [1] CRAN (R 4.1.0)
+##  generics         0.1.2   2022-01-31 [1] CRAN (R 4.1.2)
+##  GGally         * 2.1.2   2021-06-21 [1] CRAN (R 4.1.0)
+##  ggplot2        * 3.3.6   2022-05-03 [1] CRAN (R 4.1.2)
+##  glue             1.6.2   2022-02-24 [1] CRAN (R 4.1.2)
+##  gtable           0.3.0   2019-03-25 [1] CRAN (R 4.1.0)
+##  haven            2.5.0   2022-04-15 [1] CRAN (R 4.1.2)
+##  highr            0.9     2021-04-16 [1] CRAN (R 4.1.0)
+##  hms              1.1.1   2021-09-26 [1] CRAN (R 4.1.0)
+##  htmltools        0.5.2   2021-08-25 [1] CRAN (R 4.1.0)
+##  httr             1.4.3   2022-05-04 [1] CRAN (R 4.1.2)
+##  jquerylib        0.1.4   2021-04-26 [1] CRAN (R 4.1.0)
+##  jsonlite         1.8.0   2022-02-22 [1] CRAN (R 4.1.2)
+##  knitr            1.39    2022-04-26 [1] CRAN (R 4.1.2)
+##  labeling         0.4.2   2020-10-20 [1] CRAN (R 4.1.0)
+##  lattice          0.20-45 2021-09-22 [1] CRAN (R 4.1.2)
+##  lifecycle        1.0.1   2021-09-24 [1] CRAN (R 4.1.0)
+##  lubridate        1.8.0   2021-10-07 [1] CRAN (R 4.1.0)
+##  magrittr         2.0.3   2022-03-30 [1] CRAN (R 4.1.2)
+##  Matrix           1.4-1   2022-03-23 [1] CRAN (R 4.1.2)
+##  mgcv             1.8-40  2022-03-29 [1] CRAN (R 4.1.2)
+##  modelr           0.1.8   2020-05-19 [1] CRAN (R 4.1.0)
+##  munsell          0.5.0   2018-06-12 [1] CRAN (R 4.1.0)
+##  nlme             3.1-157 2022-03-25 [1] CRAN (R 4.1.2)
+##  pillar           1.7.0   2022-02-01 [1] CRAN (R 4.1.2)
+##  pkgconfig        2.0.3   2019-09-22 [1] CRAN (R 4.1.0)
+##  plyr             1.8.7   2022-03-24 [1] CRAN (R 4.1.2)
+##  purrr          * 0.3.4   2020-04-17 [1] CRAN (R 4.1.0)
+##  R6               2.5.1   2021-08-19 [1] CRAN (R 4.1.0)
+##  RColorBrewer     1.1-3   2022-04-03 [1] CRAN (R 4.1.2)
+##  Rcpp             1.0.8.3 2022-03-17 [1] CRAN (R 4.1.2)
+##  readr          * 2.1.2   2022-01-30 [1] CRAN (R 4.1.2)
+##  readxl           1.4.0   2022-03-28 [1] CRAN (R 4.1.2)
+##  reprex           2.0.1   2021-08-05 [1] CRAN (R 4.1.0)
+##  reshape          0.8.9   2022-04-12 [1] CRAN (R 4.1.2)
+##  rlang            1.0.2   2022-03-04 [1] CRAN (R 4.1.2)
+##  rmarkdown        2.14    2022-04-25 [1] CRAN (R 4.1.2)
+##  rstudioapi       0.13    2020-11-12 [1] CRAN (R 4.1.0)
+##  rvest            1.0.2   2021-10-16 [1] CRAN (R 4.1.0)
+##  sass             0.4.1   2022-03-23 [1] CRAN (R 4.1.2)
+##  scales           1.2.0   2022-04-13 [1] CRAN (R 4.1.2)
+##  sessioninfo      1.2.2   2021-12-06 [1] CRAN (R 4.1.0)
+##  stringi          1.7.6   2021-11-29 [1] CRAN (R 4.1.0)
+##  stringr        * 1.4.0   2019-02-10 [1] CRAN (R 4.1.0)
+##  tibble         * 3.1.7   2022-05-03 [1] CRAN (R 4.1.2)
+##  tidyr          * 1.2.0   2022-02-01 [1] CRAN (R 4.1.2)
+##  tidyselect       1.1.2   2022-02-21 [1] CRAN (R 4.1.2)
+##  tidyverse      * 1.3.1   2021-04-15 [1] CRAN (R 4.1.0)
+##  tzdb             0.3.0   2022-03-28 [1] CRAN (R 4.1.2)
+##  utf8             1.2.2   2021-07-24 [1] CRAN (R 4.1.0)
+##  vctrs            0.4.1   2022-04-13 [1] CRAN (R 4.1.2)
+##  vroom            1.5.7   2021-11-30 [1] CRAN (R 4.1.0)
+##  whisker          0.4     2019-08-28 [1] CRAN (R 4.1.0)
+##  withr            2.5.0   2022-03-03 [1] CRAN (R 4.1.2)
+##  xaringan       * 0.24    2022-04-26 [1] CRAN (R 4.1.2)
+##  xaringanthemer * 0.4.1   2021-11-21 [1] CRAN (R 4.1.0)
+##  xfun             0.31    2022-05-10 [1] CRAN (R 4.1.2)
+##  xml2             1.3.3   2021-11-30 [1] CRAN (R 4.1.0)
+##  yaml             2.3.5   2022-02-21 [1] CRAN (R 4.1.2)
+## 
+##  [1] /Library/Frameworks/R.framework/Versions/4.1/Resources/library
+## 
+## ──────────────────────────────────────────────────────────────────────────────
+```
+
+]
+---
+class: inverse, middle, center
+
+# Enjoy !
+
+---
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
