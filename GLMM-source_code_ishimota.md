@@ -9,7 +9,7 @@ author: '一般財団法人残留農薬研究所 石母田　誠'
   
 
 ``` r
-####メソコスム試験（ダミーデータ）GLM解析###  
+####メソコスム試験（ダミーデータ）GLM解析###    
 toxicity<-read.table("GLMM-data.Ishimota.txt", header = T)	#データの読み込み
 attach(toxicity)　　　　　　　　　　　　　　　　　　　　#データへのアクセス
 pairs(toxicity)　　　　　　　　　　　　　　　　         #変数同士の関係性の図示
