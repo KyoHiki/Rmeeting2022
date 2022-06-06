@@ -39,3 +39,13 @@
 [Google Form](https://forms.gle/Q6BqWRmMc9A5u2hz5)などを通じていただいたご質問に対しての回答を以下に掲載する予定です。
 - Q1.   
 - Q2.  
+  
+  
+    
+## 参考資料
+- [Rユーザのための RStudio［実践］入門](https://gihyo.jp/book/2021/978-4-297-12170-9)
+- [自然科学研究のためのR入門  ―再現可能なレポート執筆実践―](https://www.kyoritsu-pub.co.jp/book/b10003117.html)
+- [再現可能性のすゝめ ―RStudioによるデータ解析とレポート作成― ](https://www.kyoritsu-pub.co.jp/book/b10003938.html) 
+- [データ分析のためのデータ可視化入門](https://www.kspub.co.jp/book/detail/5164044.html)
+- [Rが生産性を高める](https://gihyo.jp/book/2022/978-4-297-12524-0)
+  
