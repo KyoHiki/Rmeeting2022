@@ -20,7 +20,7 @@
   * 18:32-19:02   江口 哲史 （千葉大）：統計ソフトRの概要，データ集計・作図，レポート作成法  
   　　
   * 19:02-19:14   竹下 和貴 （東洋大)：重回帰分析の実行とその結果の可視化  
-     　　　　　　　　　　　　　　　    Rコード→[emmeans](https://github.com/KyoHiki/Rmeeting2022/blob/main/emmeans.md)・dagitty  
+     　　　　　　　　　　　　　　　    Rコード→[emmeans](https://github.com/KyoHiki/Rmeeting2022/blob/main/emmeans.md)・[dagitty](https://github.com/KyoHiki/Rmeeting2022/blob/main/dagitty.md)  
   * 19:14-19:26   石母田 誠 （残農研)：GLMM（一般化線形混合モデル）でデータのばらつきに対応しよう！  
        　　　　　　　　　　　　　　　　Rコード→[glmm](https://github.com/KyoHiki/Rmeeting2022/blob/main/GLMM-source_code_ishimota.md)     
   * 19:26-19:38   横溝 裕行 （国環研）：個体群行列から動態を把握する：個体群成長率などの算出  
