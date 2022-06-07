@@ -11,10 +11,10 @@ names(d); head(d)
 1 River1    0.66  0.80   2.83  0.54 7.6 2.9  Large  0.17  
 2 River1    0.54 50.01 111.74 27.69 7.5 4.6  Large  0.38  
 3 River1    0.82 44.17  41.16  7.90 7.5 4.5  Small  0.32  
-4 River2    0.79  0.50  42.94 11.86 7.8 1.9 Middle  0.58  
-5 River2    0.72 19.92   5.77  6.21 7.8 1.4 Middle  0.83  
-6 River2    0.88  1.15   5.03 15.55 7.6 1.1 Middle  0.80  
-
+4 River10    0.76  0.78   0.92  0.14 7.7 1.0 Middle  0.73  
+5 River10    0.83 44.98  41.97  7.06 7.6 0.9 Middle  0.27  
+6 River10    0.81 56.85  48.75  5.57 7.4 0.9 Middle  0.19  
+  
 ``` r
 d$Soil <- factor(d$Soil,
                  levels = c("Small", "Middle", "Large")
@@ -30,34 +30,49 @@ summary(mod)
 
 ``` 
 Call:  
-glm(formula = Insecta ~ log10(Ni) + log10(Zn) + log10(Cu) + pH + 
-    TOC + Soil + Speed + River, family = gaussian(link = "logit"), 
+glm(formula = Insecta ~ log10(Ni) + log10(Zn) + log10(Cu) + pH +   
+    TOC + Soil + Speed + River, family = gaussian(link = "logit"),   
     data = d, na.action = na.fail)  
   
 Deviance Residuals:   
-[1]  0  0  0  0  0  0  0  0   0   
+      Min         1Q     Median         3Q        Max    
+-0.189154  -0.034510   0.004731   0.049125   0.086917    
   
-Coefficients: (2 not defined because of singularities)  
-            Estimate Std. Error t value Pr(>|t|)  
-(Intercept)  17.7556        NaN     NaN      NaN  
-log10(Ni)    -1.0865        NaN     NaN      NaN  
-log10(Zn)     1.1730        NaN     NaN      NaN  
-log10(Cu)    -1.2242        NaN     NaN      NaN  
-pH           -2.2928        NaN     NaN      NaN  
-TOC          -0.1279        NaN     NaN      NaN  
-SoilMiddle   -3.8079        NaN     NaN      NaN  
-SoilLarge    -1.6001        NaN     NaN      NaN  
-Speed         7.8911        NaN     NaN      NaN  
-RiverRiver2       NA         NA      NA       NA  
-RiverRiver3       NA         NA      NA       NA  
+Coefficients:  
+             Estimate Std. Error t value Pr(>|t|)     
+(Intercept)   1.29421    5.96055   0.217  0.83002     
+log10(Ni)    -0.27685    0.25843  -1.071  0.29515     
+log10(Zn)     0.23925    0.33912   0.706  0.48758     
+log10(Cu)     0.54492    0.25229   2.160  0.04145 *   
+pH            0.21991    0.75927   0.290  0.77469     
+TOC          -0.56566    0.19246  -2.939  0.00737 **  
+SoilMiddle   -0.71502    0.46834  -1.527  0.14047     
+SoilLarge    -1.03698    0.43189  -2.401  0.02483 *   
+Speed         1.10978    0.92481   1.200  0.24235     
+RiverRiver10 -1.07529    0.75957  -1.416  0.17028     
+RiverRiver11  0.06365    0.61027   0.104  0.91784     
+RiverRiver12 -2.29819    0.89298  -2.574  0.01698 *   
+RiverRiver13 -0.03800    1.03789  -0.037  0.97111     
+RiverRiver14 -1.04044    0.76558  -1.359  0.18732     
+RiverRiver2  -1.59134    0.91210  -1.745  0.09439 .   
+RiverRiver3  -1.07397    0.78096  -1.375  0.18232     
+RiverRiver4  -1.02562    0.83666  -1.226  0.23266     
+RiverRiver5   0.09860    0.68019   0.145  0.88600     
+RiverRiver6   0.71898    0.53087   1.354  0.18878     
+RiverRiver7  -2.18786    0.93860  -2.331  0.02888 *   
+RiverRiver8   0.56627    1.10928   0.510  0.61458     
+RiverRiver9  -0.94293    0.91782  -1.027  0.31493     
+
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  
   
-(Dispersion parameter for gaussian family taken to be NaN)  
-     Null deviance: 1.0309e-01  on 8  degrees of freedom  
-Residual deviance: 5.6823e-30  on 0  degrees of freedom  
-AIC: -580.3  
+(Dispersion parameter for gaussian family taken to be 0.009870095)  
+
+Null deviance: 1.0826  on 44  degrees of freedom  
+Residual deviance: 0.2270  on 23  degrees of freedom  
+AIC: -64.322  
   
-Number of Fisher Scoring iterations: 1   
-  
+Number of Fisher Scoring iterations: 12  
+    
 ``` r
 #Calculate estimated marginal means----
 x.Ni <- seq(from = min(d$Ni), max(d$Ni), length = 100)
@@ -81,19 +96,26 @@ EMM.TOC <- confint(emmeans(mod,
 
 res <- data.frame(Ni = x.Ni,
                   TOC = x.TOC,
-                  emm.Ni = exp(EMM.Ni$emmean)/(1 + exp(EMM.Ni$emmean)),
-                  LCL.Ni = exp(EMM.Ni$lower.C)/(1 + exp(EMM.Ni$lower.C)),
-                  UCL.Ni = exp(EMM.Ni$upper.CL)/(1 + exp(EMM.Ni$upper.CL)),
-                  emm.TOC = exp(EMM.TOC$emmean)/(1 + exp(EMM.TOC$emmean)),
-                  LCL.TOC = exp(EMM.TOC$lower.C)/(1 + exp(EMM.TOC$lower.C)),
-                  UCL.TOC = exp(EMM.TOC$upper.CL)/(1 + exp(EMM.TOC$upper.CL))
+                  emm.Ni = EMM.Ni$response,
+                  LCL.Ni = EMM.Ni$lower.CL,
+                  UCL.Ni = EMM.Ni$upper.CL,
+                  emm.TOC = EMM.TOC$response,
+                  LCL.TOC = EMM.TOC$lower.CL,
+                  UCL.TOC = EMM.TOC$upper.CL
                   )
 
 rm(EMM.Ni, EMM.TOC)
 
 summary(res)
 ```
-
+|Ni    |TOC   | emm.Ni |          LCL.Ni    |       UCL.Ni    |      emm.TOC    |      LCL.TOC      |     UCL.TOC  
+| ---- | ---- |---- | ---- |---- | ---- |---- | ---- |
+|Min.   :  0.21 |  Min.   :0.3   |Min.   :0.8098  | Min.   :0.6724  | Min.   :0.8929 |  Min.   :0.2839  | Min.   :0.06618  | Min.   :0.6892    
+|1st Qu.: 46.05 | 1st Qu.:1.9  | 1st Qu.:0.8150  | 1st Qu.:0.6914  | 1st Qu.:0.8938  | 1st Qu.:0.4950   |1st Qu.:0.24415  | 1st Qu.:0.7484    
+|Median : 91.89 |  Median :3.5 |  Median :0.8223 |  Median :0.7160 |  Median :0.8955 |  Median :0.7078  | Median :0.58084 |  Median :0.8090    
+|Mean   : 91.89 | Mean   :3.5  | Mean   :0.8272  | Mean   :0.7236  | Mean   :0.8971  | Mean   :0.6697   |Mean   :0.51959  | Mean   :0.8237    
+|3rd Qu.:137.72 |  3rd Qu.:5.1 |  3rd Qu.:0.8341 |  3rd Qu.:0.7518 |  3rd Qu.:0.8972 |  3rd Qu.:0.8569  | 3rd Qu.:0.79231 |  3rd Qu.:0.9039    
+|Max.   :183.56 | Max.   :6.7  | Max.   :0.9058  | Max.   :0.7998  | Max.   :0.9656  | Max.   :0.9367   |Max.   :0.85107  | Max.   :0.9746    
 ```r
 cairo_pdf(filename = "Fig_TOC.pdf")
 
@@ -126,7 +148,7 @@ axis(2,
 
 dev.off()
 ```
-
+![](figs/Fig_TOC.png)
 ```r
 #Plot EMM for Ni change----
 cairo_pdf(filename = "Fig_Ni.pdf")
@@ -160,7 +182,7 @@ axis(2,
 
 dev.off()
 ```
-
+![](figs/Fig_Ni.png)
 ```r
 #Heatmap of EMM for TOC and Ni changes----
 EMM <- numeric(10000)
@@ -188,7 +210,14 @@ rm(EMM, i)
 
 summary(res2)
 ```
-
+|       Ni         |       TOC    |       emm      |  
+| ---- | ---- |---- |
+| Min.   :-0.67778 |  Min.   :0.3 |  Min.   :0.2299 | 
+| 1st Qu.: 0.05761 |  1st Qu.:1.9 |  1st Qu.:0.4527 | 
+| Median : 0.79300 |  Median :3.5 |  Median :0.6735 |  
+| Mean   : 0.79300 |  Mean   :3.5 |  Mean   :0.6399 | 
+| 3rd Qu.: 1.52839 |  3rd Qu.:5.1 |  3rd Qu.:0.8373 | 
+| Max.   : 2.26378 |  Max.   :6.7 |  Max.   :0.9618 | 
 ```r
 
 p <- ggplot(res2, aes(y = Ni, x = TOC, z = emm))
@@ -227,3 +256,4 @@ print(p)
 
 dev.off()
 ```
+![](figs/Heatmap.png)
