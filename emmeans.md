@@ -2,6 +2,7 @@
 ## Install libaries
 library(emmeans)
 library(ggplot2)
+#R v.4.1.3 and the packages "emmeans" v.1.7.3 and "ggplot2" v. 3.3.5 were used here.
 
 d <- read.table("Data_benthos.txt", sep = ",", header = T) #This data is only partially available on this Github page for various reasons. I appreciate your understanding.
 names(d); head(d)
