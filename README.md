@@ -27,7 +27,7 @@
      　　　　　　　　　　　　　　　    **Rソースコード**→[popbio](https://github.com/KyoHiki/Rmeeting2022/blob/main/popbio.md)   
   * 19:38-19:43   休憩  
   * 19:43-19:55   中西 康介 （国環研）：Rを使った地理情報データの可視化  
-     　　　　　　　　　　　　　　　    **Rソースコード**→[GIS](https://github.com/KyoHiki/Rmeeting2022/blob/main/GISmd)   
+     　　　　　　　　　　　　　　　    **Rソースコード**→[GIS](https://github.com/KyoHiki/Rmeeting2022/blob/main/GIS.md)   
                         * 19:55-20:07   日置 恭史郎 （国環研）：Rで微分方程式を解く～移流拡散方程式の例～  
   * 20:07-20:19   仲山 慶 （愛媛大）：オープンデータを活用する（Rでも，Pythonでも）  
   　　
@@ -35,7 +35,7 @@
     
   
   
-
+  
 　　
 ## Q&A  
 [Google Form](https://forms.gle/Q6BqWRmMc9A5u2hz5)などを通じていただいたご質問に対しての回答を以下に掲載する予定です。
