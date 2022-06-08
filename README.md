@@ -24,6 +24,7 @@
   * 19:14-19:26   石母田 誠 （残農研)：GLMM（一般化線形混合モデル）でデータのばらつきに対応しよう！  
      　　　　　　　　　　　　　　　    **Rコード**→[glmm](https://github.com/KyoHiki/Rmeeting2022/blob/main/GLMM-source_code_ishimota.md)     
   * 19:26-19:38   横溝 裕行 （国環研）：個体群行列から動態を把握する：個体群成長率などの算出  
+     　　　　　　　　　　　　　　　    **Rコード**→[popbio](https://github.com/KyoHiki/Rmeeting2022/blob/main/popbio.md)   
   * 19:38-19:43   休憩  
   * 19:43-19:55   中西 康介 （国環研）：Rを使った地理情報データの可視化
   * 19:55-20:07   日置 恭史郎 （国環研）：Rで微分方程式を解く～移流拡散方程式の例～  
