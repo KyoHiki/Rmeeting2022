@@ -66,7 +66,7 @@ jpn_dist <- 1:47 %>%  #都道府県jisコード（1～47すべてに以下の処
   purrr::map(  #繰り返し処理のための関数
     ~jpndistrict::jpn_pref(  #都道府県を抽出
       pref_code = .,  #都道府県コードを入れていく
-      district = TRUE  #区市町村境界の表示あり, R ver.4.以降ではdistrict=FALSEだとエラーが出る？
+      district = TRUE  #区市町村境界の表示あり, R ver.4.1以降ではdistrict=FALSEだとエラーが出る？
       )
     ) %>% 
   purrr::reduce(rbind) %>%  #上の処理を結合 
