@@ -1,4 +1,4 @@
-﻿MeasuredID	ProjectID	SampleID	ScientificName	ChemicalID	ChemicalName	ExperimentID	MeasuredValue	AlternativeData	Unit	Remarks	RegisterDate	UpdateDate
+﻿MeasuredID	ProjectID	SampleID	ScientificName	ChemicalID	ChemicalName	ExperimentID	MeasuredValue	AlternativeData	Unit	Remarks	RegisterDate	UpdatDate
 81245	PRA000095	SAA005816	Water	CH0000362	PFBS		0.001	<1.00E-3	μg/L		2019/7/26	2019/7/26
 81246	PRA000095	SAA005817	Water	CH0000362	PFBS		0.001	<1.00E-3	μg/L		2019/7/26	2019/7/26
 81247	PRA000095	SAA005818	Water	CH0000362	PFBS		0.001		μg/L		2019/7/26	2019/7/26
