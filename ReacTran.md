@@ -11,6 +11,7 @@
 # パッケージのインストール
 library(ReacTran) #deSolveも一緒にダウンロードされる
 library(ggplot2)
+library(ggprism)
 library(tidyverse)
 
 # パラメータと初期値の設定
@@ -71,7 +72,7 @@ N_overwater = 1
 N_total = N_sed+N_UWL+N_overwater
 
 # モデルのグリッドに当てはめる
-Num <- c(N_sed,  N_UWL, N_w_outflux)
+Num <- c(N_sed,  N_UWL, N_overwater)
 
 # グリッドを設定する
 grid <- setup.grid.1D(x.up = 0, L = Length, N = Num)
