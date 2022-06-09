@@ -30,6 +30,7 @@
      　　　　　　　　　　　　　　　    **Rソースコード**→[GIS](https://github.com/KyoHiki/Rmeeting2022/blob/main/GIS.md)   
   * 19:55-20:07   日置 恭史郎 （国環研）：Rで微分方程式を解く～移流拡散方程式の例～  
   * 20:07-20:19   仲山 慶 （愛媛大）：オープンデータを活用する（Rでも，Pythonでも）  
+       　　　　　　　　　　　　　　　  **Rソースコード**→[chemtheatre](https://github.com/KyoHiki/Rmeeting2022/blob/main/chemtheatre.md)   
   　　
   * 20:19-20:30   質問コーナー・閉会  
     
