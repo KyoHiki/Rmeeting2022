@@ -1,3 +1,11 @@
+---
+##環境化学物質 3 学会合同大会 自由集会2　2022.6.14  
+##なんでもできる！Rを使った環境データ解析事例  
+##Rで微分方程式を解く～移流拡散方程式の例～  
+##日置恭史郎　国立環境研究所 環境リスク・健康領域 　
+  
+---
+
 ```r
 ######## 簡易モデル：底泥からの脱着 #######
 # パッケージのインストール
@@ -141,6 +149,7 @@ result <- ode.1D(y = yini, times = times, func = sediment.model, parms = 0, hini
 
 
 ## Section 4: 経時変化と空間分布をプロットする ##
+# まずは経時変化
 Overlying <- result[,N_total+1]*1000    #1000: mg/L -> ug/L
 Porewater <- rowMeans(result[,2:(N_sed)])/K_sedw*1000 # 局所的な平衡を仮定
 UWL <- rowMeans(result[,(N_sed+2):(N_sed+N_UWL)])*1000
@@ -156,6 +165,7 @@ result_conc_time %>%
 ```
 ![](figs/TimeCourse.png)
 ```r
+# 次に空間分布
 Initial <- c(result[2,2:(N_sed+1)]/K_sedw,  result[2,(N_sed+2):(N_total+1)] )*1000
 End <-  c(result[N_total+1,2:(N_sed+1)]/K_sedw,  result[N_total+1,(N_sed+2):(N_total+1)] )*1000
 spatial_conc <- data.frame(Depth=grid$x.int[-1],Initial,End)
