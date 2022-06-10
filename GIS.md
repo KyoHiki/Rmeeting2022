@@ -13,7 +13,8 @@ install.packages(c("tidyverse", "sf", "rmapshaper", "mapview", "ggspatial"))
 #{jpndistrict}は{remotes}をインストールした上で、GitHubからインストール（初回のみ）
 install.packages("remotes")
 remotes::install_github("uribo/jpndistrict")
-
+```
+```r
 #パッケージの読み込み
 #2回目以降もRを立ち上げる度にまず実行
 library(tidyverse)  #ggplot2、dplyr、purrrなどを含むパッケージ群
