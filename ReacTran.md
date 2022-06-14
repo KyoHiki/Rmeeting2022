@@ -8,6 +8,14 @@
 
 ```r
 ######## 簡易モデル：底泥からの脱着 #######
+# パッケージを初めて使用する場合, 2回目からは省略可能
+install.packages("ReacTran")
+install.packages("ggplot2")
+install.packages("ggprism")
+install.packages("tidyverse")
+```
+```r
+######## 簡易モデル：底泥からの脱着 #######
 # パッケージのインストール
 library(ReacTran) #deSolveも一緒にダウンロードされる
 library(ggplot2)
