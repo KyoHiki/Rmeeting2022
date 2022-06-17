@@ -1,5 +1,5 @@
 ## 自由集会「なんでもできる！Rを使った環境データ解析事例」
-このページでは[環境化学物質3学会合同大会](https://j-ec.smartcore.jp/M022/forum/touron30)@富山（2022年6月14~16日）の[自由集会2](https://j-ec.smartcore.jp/M022/forum/touron30/free_meeting)「なんでもできる！Rを使った環境データ解析事例」で使用する<b>Rコード</b>と、事前または当日にいただいたご質問・相談に対する<b>回答</b>を掲載しています。    
+このページでは[環境化学物質3学会合同大会](https://j-ec.smartcore.jp/M022/forum/touron30)@富山（2022年6月14~16日）の[自由集会2](https://j-ec.smartcore.jp/M022/forum/touron30/free_meeting)「なんでもできる！Rを使った環境データ解析事例」で使用する<b>Rコード</b>~~と、事前または当日にいただいたご質問・相談に対する回答~~を掲載しています。    
     
   
     
@@ -40,9 +40,8 @@
   
 　　
 ## Q&A  
-[Google Form](https://forms.gle/Q6BqWRmMc9A5u2hz5)などを通じていただいたご質問に対しての回答を以下に掲載する予定です。
-- Q1.   
-- Q2.  
+~~[Google Form](https://forms.gle/Q6BqWRmMc9A5u2hz5)などを通じていただいたご質問に対しての回答を以下に掲載する予定です。~~
+全体に対するご質問は特に出なかったため、Q&Aは掲載しておりません。      
   
   
     
